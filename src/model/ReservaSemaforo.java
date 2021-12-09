@@ -32,4 +32,9 @@ public class ReservaSemaforo extends Semaphore implements Reserva {
         return "Semáforo";
     }
 
+    @Override
+    public boolean estaOcupado() {
+        return super.availablePermits() == 0;
+    }
+
 }

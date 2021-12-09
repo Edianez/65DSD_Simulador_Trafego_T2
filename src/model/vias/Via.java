@@ -24,7 +24,7 @@ import model.Veiculo;
  */
 public abstract class Via {
 
-    public abstract Via getProximaVia();
+    public abstract List<Via> getProximasVias();
 
     protected CoordenadaDeMalha coordenadaDeMalha;
     protected Reserva reserva;
@@ -72,6 +72,10 @@ public abstract class Via {
         coordenadaDeMalha.setVeiculo(v);
     }
 
+    public boolean estaOcupada() {
+        return reserva.estaOcupado();
+    }
+    
     public void ocupar() throws InterruptedException {
         reserva.ocupar();
     }
@@ -100,7 +104,7 @@ public abstract class Via {
         this.imagemOcupada = imagemOcupada;
     }
 
-    protected Via factoryProximaVia(List<String> direcoes) {
+    protected List<Via> factoryProximasVias(List<String> direcoes) {
         List<Via> proximas = new ArrayList<>();
         List<Via> ultrapassagens = new ArrayList<>();
 
@@ -151,9 +155,7 @@ public abstract class Via {
                 ultrapassagens.add(ultrapassagem);
             }
         }
-        return proximas.isEmpty() ? 
-                ultrapassagens.get((int) Math.random() * ultrapassagens.size()) 
-                : proximas.get((int) Math.random() * proximas.size());
+        return proximas.isEmpty() ? ultrapassagens : proximas;     
     }
 
     public int getX() {

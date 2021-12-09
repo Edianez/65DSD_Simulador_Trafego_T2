@@ -22,11 +22,11 @@ public class CruzamentoBaixoDireita extends Cruzamento{
     }
 
     @Override
-    public Via getProximaVia() {
+    public List<Via> getProximasVias() {
         List<String> direcoes = new ArrayList<>();
         direcoes.add("baixo");        
         direcoes.add("direita");
-        return super.factoryProximaVia(direcoes);
+        return super.factoryProximasVias(direcoes);
     }
     
 }

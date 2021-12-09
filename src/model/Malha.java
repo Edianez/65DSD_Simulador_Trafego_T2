@@ -38,7 +38,7 @@ public class Malha {
     public void transformaViasEm(String classs) {
         for (int i = 0; i < vias.length; i++) {
             for (int j = 0; j < vias[0].length; j++) {
-                if(vias[i][j] != null){
+                if (vias[i][j] != null) {
                     vias[i][j].transformaTipoReservaEm(classs);
                 }
             }
@@ -49,7 +49,7 @@ public class Malha {
         List<Via> acessos = getViasDeAcesso();
         Via via = acessos.get((int) (Math.random() * acessos.size()));
         if (veiculos.size() < maxVeiculos) {
-            Veiculo v = new Veiculo((long) (Math.random() * 1000 + 500), via);
+            Veiculo v = new Veiculo((long) (500), via);
             via.setVeiculo(v);
             veiculos.add(v);
             v.start();
@@ -95,4 +95,4 @@ public class Malha {
         return veiculos;
     }
 
-}
+    }

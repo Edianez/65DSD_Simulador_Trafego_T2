@@ -21,13 +21,13 @@ public class ViaBaixo extends ViaReta{
     }
 
     @Override
-    public Via getProximaVia() {
+    public List<Via> getProximasVias() {
         List<String> direcoes = new ArrayList<>();
         direcoes.add("baixo");
         direcoes.add("diagonal-baixo-esquerda");
         direcoes.add("diagonal-baixo-direita");
 
-        return super.factoryProximaVia(direcoes);
+        return super.factoryProximasVias(direcoes);
     }
     
 }

@@ -33,4 +33,9 @@ public class ReservaMonitor implements Reserva {
         return "Monitor";
     }
 
+    @Override
+    public boolean estaOcupado() {
+        return disponibilidade == 0;
+    }
+
 }

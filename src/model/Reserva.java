@@ -12,5 +12,7 @@ package model;
 public interface Reserva {
     public void ocupar() throws InterruptedException;
     public void desocupar() throws InterruptedException;
+    public boolean estaOcupado();
+
     public String toString();
 }
