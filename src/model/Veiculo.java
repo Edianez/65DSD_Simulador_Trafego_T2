@@ -56,23 +56,25 @@ public class Veiculo extends Thread {
             Via proximaVia = proximasVias.get((int) (Math.random() * proximasVias.size()));
             if (proximaVia instanceof Cruzamento) {
                 List<Via> caminho = ((Cruzamento) proximaVia).gerarCaminhoSaidaDeCruzamento();
-                for (Via viaCaminho : caminho) {
-                    viaCaminho.ocupar();
-                }
+
+                via.getCoordenadaDeMalha().getMalha().reservarCruzamento(caminho);
+
+                this.via.desocupar();
                 for (Via viaCaminho : caminho) {
                     sleep(velocidade / 2);
                     irParaVia(viaCaminho);
+                    viaCaminho.desocupar();
                     sleep(velocidade / 2);
                 }
             } else {
                 proximaVia.ocupar();
+                this.via.desocupar();
                 irParaVia(proximaVia);
             }
         }
     }
 
     public void irParaVia(Via proximaVia) throws InterruptedException {
-        this.via.desocupar();
         this.via.setVeiculo(null);
         this.via = proximaVia;
         this.via.setVeiculo(this);

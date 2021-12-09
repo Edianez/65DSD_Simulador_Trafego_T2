@@ -200,7 +200,7 @@ public class ControllerMalha {
                     protected Void doInBackground() throws Exception {
                         do {
                             atualizarTableModel();
-                            Thread.sleep(100);
+                            Thread.sleep(10);
                         } while (executando || malhaTableModel.getMalha().getVeiculos().size() > 0);
                         return null;
                     }
@@ -210,7 +210,7 @@ public class ControllerMalha {
                     protected Void doInBackground() throws Exception {
                         while (executando) {
                             malhaTableModel.getMalha().inserirVeiculo();
-                            Thread.sleep(200);
+                            Thread.sleep(10);
                         }
                         return null;
                     }

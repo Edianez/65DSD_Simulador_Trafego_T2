@@ -18,9 +18,11 @@ public class Malha {
     private Via[][] vias;
     private int maxVeiculos;
     private List<Veiculo> veiculos;
+    private Reserva mutex;
 
     public Malha() {
         veiculos = new ArrayList<>();
+        mutex = new ReservaSemaforo();
     }
 
     public int getMaxVeiculos() {
@@ -95,4 +97,18 @@ public class Malha {
         return veiculos;
     }
 
+    public void reservarCruzamento(List<Via> caminho) throws InterruptedException {
+        boolean cruzamentoLivre = true;
+        List<Via> reservadas = new ArrayList<>();
+        do {
+            mutex.ocupar();
+            cruzamentoLivre = true;
+            for (Via viaCaminho : caminho) {
+                viaCaminho.ocupar();
+                reservadas.add(viaCaminho);
+            }
+            mutex.desocupar();
+        } while (!cruzamentoLivre);
     }
+
+}
