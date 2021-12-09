@@ -72,10 +72,6 @@ public abstract class Via {
         coordenadaDeMalha.setVeiculo(v);
     }
 
-    public boolean estaOcupada() {
-        return reserva.estaOcupado();
-    }
-    
     public void ocupar() throws InterruptedException {
         reserva.ocupar();
     }
@@ -148,10 +144,10 @@ public abstract class Via {
                     via = null;
                 }
             }
-            if (via != null) {
+            if (via != null && !via.temVeiculo()) {
                 proximas.add(via);
             }
-            if (ultrapassagem != null && this.getClass() == ultrapassagem.getClass()) {
+            if (ultrapassagem != null && this.getClass() == ultrapassagem.getClass() && !ultrapassagem.temVeiculo()) {
                 ultrapassagens.add(ultrapassagem);
             }
         }

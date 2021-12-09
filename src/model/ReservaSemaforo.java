@@ -31,10 +31,4 @@ public class ReservaSemaforo extends Semaphore implements Reserva {
     public String toString() {
         return "Semáforo";
     }
-
-    @Override
-    public boolean estaOcupado() {
-        return super.availablePermits() == 0;
-    }
-
 }

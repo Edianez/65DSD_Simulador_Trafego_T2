@@ -62,19 +62,21 @@ public class Veiculo extends Thread {
                 this.via.desocupar();
                 for (Via viaCaminho : caminho) {
                     sleep(velocidade / 2);
-                    irParaVia(viaCaminho);
+                    this.via.setVeiculo(null);
+                    this.via = viaCaminho;
+                    this.via.setVeiculo(this);
                     viaCaminho.desocupar();
                     sleep(velocidade / 2);
                 }
             } else {
-                proximaVia.ocupar();
-                this.via.desocupar();
                 irParaVia(proximaVia);
             }
         }
     }
 
     public void irParaVia(Via proximaVia) throws InterruptedException {
+        proximaVia.ocupar();
+        this.via.desocupar();
         this.via.setVeiculo(null);
         this.via = proximaVia;
         this.via.setVeiculo(this);
