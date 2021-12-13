@@ -98,17 +98,11 @@ public class Malha {
     }
 
     public void reservarCruzamento(List<Via> caminho) throws InterruptedException {
-        boolean cruzamentoLivre = true;
-        List<Via> reservadas = new ArrayList<>();
-        do {
-            mutex.ocupar();
-            cruzamentoLivre = true;
-            for (Via viaCaminho : caminho) {
-                viaCaminho.ocupar();
-                reservadas.add(viaCaminho);
-            }
-            mutex.desocupar();
-        } while (!cruzamentoLivre);
-    }
+        mutex.ocupar();
+        for (Via viaCaminho : caminho) {
+            viaCaminho.ocupar();
+        }
+        mutex.desocupar();
 
+    }
 }
