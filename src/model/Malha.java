@@ -50,7 +50,7 @@ public class Malha {
         List<Via> acessos = getViasDeAcesso();
         Via via = acessos.get((int) (Math.random() * acessos.size()));
         if (veiculos.size() < maxVeiculos) {
-            Veiculo v = new Veiculo((long) (50), via);
+            Veiculo v = new Veiculo((long) (Math.random() * 600 + 200), via);
             via.setVeiculo(v);
             veiculos.add(v);
             v.start();

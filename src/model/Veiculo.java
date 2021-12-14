@@ -45,6 +45,7 @@ public class Veiculo extends Thread {
         via.setVeiculo(null);
         via.getCoordenadaDeMalha().getMalha().getVeiculos().remove(this);
         this.via = null;
+        join();
     }
 
     public void andar() throws InterruptedException {
@@ -57,9 +58,9 @@ public class Veiculo extends Thread {
                 this.via.desocupar();
                 for (Via viaCaminho : caminho) {
                     sleep(velocidade / 2);
+                    viaCaminho.setVeiculo(this);
                     this.via.setVeiculo(null);
                     this.via = viaCaminho;
-                    this.via.setVeiculo(this);
                     viaCaminho.desocupar();
                     sleep(velocidade / 2);
                 }
