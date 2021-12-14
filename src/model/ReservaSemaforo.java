@@ -6,6 +6,7 @@
 package model;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -30,5 +31,10 @@ public class ReservaSemaforo extends Semaphore implements Reserva {
     @Override
     public String toString() {
         return "Semáforo";
+    }
+
+    @Override
+    public boolean tentaOcupar() throws InterruptedException {
+        return tryAcquire((int)(Math.random() * 300 + 100), TimeUnit.MILLISECONDS);
     }
 }

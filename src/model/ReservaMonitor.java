@@ -5,32 +5,35 @@
  */
 package model;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  *
  * @author Danton e Edianez
  */
 public class ReservaMonitor implements Reserva {
 
-    private int disponibilidade = 1;
-
+    private ReentrantLock lock = new ReentrantLock(true);
+    
     @Override
-    public synchronized void ocupar() throws InterruptedException {
-        if (disponibilidade == 0) {
-            wait();
-        }
-        disponibilidade = 0;
-        notify();
+    public void ocupar() throws InterruptedException {
+        lock.lock();
     }
 
     @Override
-    public synchronized void desocupar() throws InterruptedException {
-        disponibilidade = 1;
-        notify();
+    public void desocupar() throws InterruptedException {
+        lock.unlock();
     }
 
     @Override
     public String toString() {
         return "Monitor";
+    }
+
+    @Override
+    public boolean tentaOcupar() throws InterruptedException {
+        return lock.tryLock((int)(Math.random() * 300 + 100), TimeUnit.MILLISECONDS);
     }
 
 }

@@ -7,11 +7,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.cruzamentos.Cruzamento;
 import model.vias.Via;
-import model.vias.ViaReta;
 
 /**
  *
@@ -56,9 +53,7 @@ public class Veiculo extends Thread {
             Via proximaVia = proximasVias.get((int) (Math.random() * proximasVias.size()));
             if (proximaVia instanceof Cruzamento) {
                 List<Via> caminho = ((Cruzamento) proximaVia).gerarCaminhoSaidaDeCruzamento();
-
-                via.getCoordenadaDeMalha().getMalha().reservarCruzamento(caminho);
-
+                boolean tentativa = reservarCruzamento(caminho);
                 this.via.desocupar();
                 for (Via viaCaminho : caminho) {
                     sleep(velocidade / 2);
@@ -85,6 +80,26 @@ public class Veiculo extends Thread {
 
     public Via getVia() {
         return via;
+    }
+
+    private boolean reservarCruzamento(List<Via> caminho) throws InterruptedException {
+        boolean tentativa;
+        List<Via> reservadas = new ArrayList();
+        do {
+            tentativa = true;
+            for (Via viaCaminho : caminho) {
+                tentativa = viaCaminho.tentaOcupar();
+                if (!tentativa) {
+                    for (Via reservada : reservadas) {
+                        reservada.desocupar();
+                    }
+                    break;
+                } else {
+                    reservadas.add(viaCaminho);
+                }
+            }
+        } while (!tentativa);
+        return tentativa;
     }
 
 }

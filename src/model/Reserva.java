@@ -12,5 +12,6 @@ package model;
 public interface Reserva {
     public void ocupar() throws InterruptedException;
     public void desocupar() throws InterruptedException;
+    public boolean tentaOcupar() throws InterruptedException;
     public String toString();
 }

@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import model.vias.Via;
 
 /**
@@ -18,11 +19,9 @@ public class Malha {
     private Via[][] vias;
     private int maxVeiculos;
     private List<Veiculo> veiculos;
-    private Reserva mutex;
 
     public Malha() {
         veiculos = new ArrayList<>();
-        mutex = new ReservaSemaforo();
     }
 
     public int getMaxVeiculos() {
@@ -95,14 +94,5 @@ public class Malha {
 
     public List<Veiculo> getVeiculos() {
         return veiculos;
-    }
-
-    public void reservarCruzamento(List<Via> caminho) throws InterruptedException {
-        mutex.ocupar();
-        for (Via viaCaminho : caminho) {
-            viaCaminho.ocupar();
-        }
-        mutex.desocupar();
-
     }
 }

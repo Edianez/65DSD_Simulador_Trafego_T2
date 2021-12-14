@@ -72,6 +72,10 @@ public abstract class Via {
         coordenadaDeMalha.setVeiculo(v);
     }
 
+    public boolean tentaOcupar() throws InterruptedException {
+        return reserva.tentaOcupar();
+    }
+        
     public void ocupar() throws InterruptedException {
         reserva.ocupar();
     }
