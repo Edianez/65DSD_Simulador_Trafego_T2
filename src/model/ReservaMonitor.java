@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ReservaMonitor implements Reserva {
 
-    private ReentrantLock lock = new ReentrantLock(true);
+    private ReentrantLock lock = new ReentrantLock();
     
     @Override
     public void ocupar() throws InterruptedException {
